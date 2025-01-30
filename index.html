@@ -21,6 +21,7 @@
             width: 90%;
             max-width: 600px;
             text-align: left;
+            position: relative;
         }
 
         .title {
@@ -62,13 +63,43 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 14px;
+            color: #8e44ad;
+            font-weight: bold;
+        }
     </style>
+
+    <script>
+        // Function to set Telegram user's first name if available
+        window.onload = function () {
+            if (window.Telegram?.WebApp) {
+                const tg = window.Telegram.WebApp;
+                tg.ready();
+
+                // Display user's first name at the bottom
+                tg.onEvent('initDataUnsafe', function (data) {
+                    const firstName = tg.initDataUnsafe?.user?.first_name;
+                    if (firstName) {
+                        document.getElementById('user-name').textContent = `Hello, ${firstName}! 👋`;
+                    }
+                });
+
+                tg.expand(); // Expands the Web App
+            }
+        };
+    </script>
 </head>
+
 <body>
     <div class="container">
         <div class="title">ㅤ⎯꯭‌💜꯭꯭ ⃪В꯭α꯭∂ ꯭м꯭υ꯭η∂꯭α꯭آآ⎯꯭ ꯭‌💜</div>
         <div class="separator">☆-------------------------------------------☆</div>
-        
+
         <div class="content">
             <p>➤ 𝐌ʏ 𝐑ᴇᴀʟ 𝐍ᴀᴍᴇ ⇝ <span class="important">sᴜᴋʜ 😈</span></p>
             <p>➤ 𝐓ɢ 𝐍ᴀᴍᴇ ⇝ <span class="important">ʙᴀᴅ ᴍᴜɴᴅᴀ 💀</span></p>
@@ -86,6 +117,8 @@
         </div>
 
         <div class="separator">☆-----------------------------------------------------------☆</div>
+
+        <div id="user-name" class="footer"></div>
     </div>
 </body>
 </html>
